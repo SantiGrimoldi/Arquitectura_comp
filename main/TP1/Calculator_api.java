@@ -73,22 +73,70 @@ public class Calculator_api implements Calculator {
         return swap(result);
     }
 
-     String swap(String a){
+    String swap(String a){
         String solution ="";
         for(int i =a.length()-1; i>=0;i--){
             solution+=a.charAt(i);
         }
         return solution;
     }
-
     @Override
     public String sub(String a, String b) {
-        return null;
+        String complementoB = sum(complemento(b), "1");
+
+        String resultadoComplemento = sum(a, complementoB);
+        String resultadoFinal = "";
+        for (int i = 1; i<resultadoComplemento.length(); i++){
+            resultadoFinal += resultadoComplemento.charAt(i);
+        }
+        return resultadoFinal;
+
+    }
+    public static String complemento(String a) {
+        String complemento = "";
+        for (int i = 0; i < a.length(); i++) {
+            if (a.charAt(i) == '0') {
+                complemento += '1';
+            } else {
+                complemento += '0';
+            }
+        }
+        return complemento;
     }
 
     @Override
     public String mult(String a, String b) {
-        return null;
+
+        int aLength = a.length();
+        int bLength = b.length();
+        boolean firstTime = true;
+
+        int counter = 0;
+        String actualResult = "";
+
+        for (int i = bLength -1; i >= 0; i--){
+            String tempResult = "";
+            for (int j = aLength -1 ; j >= 0; j--){
+                if (a.charAt(j) == '0' || b.charAt(i) == '0'){
+                    tempResult = "0" + tempResult;
+                }
+                else tempResult = "1" + tempResult;
+            }
+            if (!firstTime) {
+                int counterCopy = counter;
+                while (counterCopy > 0) {
+                    tempResult = tempResult + "0";
+                    counterCopy--;
+                }
+                actualResult = sum(actualResult, tempResult);
+            }
+            else {
+                actualResult = tempResult;
+                firstTime = false;
+            }
+            counter ++;
+        }
+        return actualResult;
     }
 
     @Override
@@ -98,12 +146,21 @@ public class Calculator_api implements Calculator {
 
     @Override
     public String toHex(String binary) {
-        return null;
+        //primero pasar a decimal
+        int n = Integer.parseInt(binary, 2);
+        String hex = Integer.toHexString(n);
+        return hex.toUpperCase();
     }
 
     @Override
     public String fromHex(String hex) {
-        return null;
+
+        int n = Integer.parseInt(hex, 16);
+        String bin = Integer.toBinaryString(n);
+        while (bin.length() < 8) {
+            bin = "0" + bin;
+        }
+        return bin;
     }
 }
 
