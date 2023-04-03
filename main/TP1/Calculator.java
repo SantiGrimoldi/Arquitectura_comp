@@ -2,7 +2,7 @@ package TP1;
 
 public interface Calculator {
 
-    String sumGuardiola(String a, String b);
+    String sum(String a, String b);
 
     String sub(String a, String b);
 

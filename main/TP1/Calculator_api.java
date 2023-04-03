@@ -3,22 +3,28 @@ package TP1;
 public class Calculator_api implements Calculator {
 
     @Override
-    public String sumGuardiola(String a, String b) {
+    public String sum(String a, String b) {
         int aLength = a.length();
         int bLength = b.length();
 
         String aOutput = a;
         String bOutput = b;
 
-        if (aLength < 7) aOutput = fill(a);
-        if (bLength < 7) bOutput = fill(b);
+        if (aLength > bLength) bOutput = fill(b, aLength);
+        if (bLength > aLength) aOutput = fill(a, bLength);
 
-        return sumAux(aOutput, bOutput, 7, "", false);
+        return sumAux(aOutput, bOutput, aOutput.length()-1, "", false);
     }
 
     private String sumAux(String a, String b, int i, String result_aux, boolean carry){
 
-        if (i == -1) return result_aux;
+        if (i == -1) {
+            if (carry){
+                result_aux = "1"+result_aux;
+            }
+            return result_aux;
+        }
+
 
         char a_ = a.charAt(i);
         char b_ = b.charAt(i);
@@ -44,13 +50,14 @@ public class Calculator_api implements Calculator {
         }
     }
 
-    public String fill(String letter) {
+    private String fill(String letter, int j) {
         String zero = "";
-        int dif = 8-letter.length();
+        int dif = j - letter.length();
         for (int i = 0; i < dif; i++){
             zero += "0";
         }
         return zero + letter;
+
     }
 
     @Override
@@ -60,7 +67,36 @@ public class Calculator_api implements Calculator {
 
     @Override
     public String mult(String a, String b) {
-        return null;
+        int aLength = a.length();
+        int bLength = b.length();
+        boolean firstTime = true;
+
+        int counter = 0;
+        String actualResult = "";
+
+        for (int i = bLength -1; i >= 0; i--){
+            String tempResult = "";
+            for (int j = aLength -1 ; j >= 0; j--){
+                if (a.charAt(j) == '0' || b.charAt(i) == '0'){
+                    tempResult = "0" + tempResult;
+                }
+                else tempResult = "1" + tempResult;
+            }
+            if (!firstTime) {
+                int counterCopy = counter;
+                while (counterCopy > 0) {
+                    tempResult = tempResult + "0";
+                    counterCopy--;
+                }
+                actualResult = sum(actualResult, tempResult);
+            }
+            else {
+                actualResult = tempResult;
+                firstTime = false;
+            }
+            counter ++;
+        }
+        return actualResult;
     }
 
     @Override
@@ -78,3 +114,4 @@ public class Calculator_api implements Calculator {
         return null;
     }
 }
+
