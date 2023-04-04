@@ -1,6 +1,7 @@
 package TP1;
 
 public class Calculator_api implements Calculator {
+    BCD bcd = new BCD();
 
     @Override
     public String sum(String a, String b) {
@@ -147,20 +148,48 @@ public class Calculator_api implements Calculator {
     @Override
     public String toHex(String binary) {
         //primero pasar a decimal
-        int n = Integer.parseInt(binary, 2);
-        String hex = Integer.toHexString(n);
-        return hex.toUpperCase();
+        int n = bcd.decode(binary);
+        //pasar de decimal a hex
+
+        String hex = "";
+        if (n == 0) {
+            return hex += 0;
+        }
+        char[] hexChars = "0123456789ABCDEF".toCharArray();
+        while (n > 0) {
+            int rest = n % 16;
+            hex += hexChars[rest];
+            n = n / 16;
+        }
+        String hexfinal = "";
+        for(int i= hex.length()-1; i>=0; i--){
+            hexfinal += hex.charAt(i);
+        }
+        return hexfinal;
     }
 
     @Override
     public String fromHex(String hex) {
-
-        int n = Integer.parseInt(hex, 16);
-        String bin = Integer.toBinaryString(n);
-        while (bin.length() < 8) {
-            bin = "0" + bin;
+            int decimal = 0;
+            for (int i = 0; i < hex.length(); i++) {
+                char hexChar = hex.charAt(i);
+                int decimalValue = hexCharToDecimalValue(hexChar);
+                decimal = 16 * decimal + decimalValue;
+            }
+            String binary = bcd.encode(decimal);
+            return binary;
         }
-        return bin;
+        public static int hexCharToDecimalValue(char hexChar) {
+            if (hexChar >= '0' && hexChar <= '9') {
+                return hexChar - '0';
+            } else if (hexChar >= 'A' && hexChar <= 'F') {
+                return hexChar - 'A' + 10;
+            } else if (hexChar >= 'a' && hexChar <= 'f') {
+                return hexChar - 'a' + 10;
+            }
+            else {
+                return 0;
+            }
     }
 }
 
