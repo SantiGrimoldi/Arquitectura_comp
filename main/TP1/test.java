@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class test {
     Calculator calculadora = new Calculator_api();
+    BCD bcd = new BCD();
     @Test
     public void testSumaBinaria() {
         String a1 = "10101010";
@@ -65,4 +66,26 @@ public class test {
             assertEquals(binario2, calculadora.fromHex(resultadoEsperado2));
             assertEquals(binario3, calculadora.fromHex(resultadoEsperado3));
         }
+
+    @Test
+    public void testIntToBinary() {
+        assertEquals("0", bcd.encode(0));
+        assertEquals("1", bcd.encode(1));
+        assertEquals("10", bcd.encode(2));
+        assertEquals("11", bcd.encode(3));
+        assertEquals("101", bcd.encode(5));
+        assertEquals("1101", bcd.encode(13));
+        assertEquals("11111111", bcd.encode(255));
     }
+    @Test
+    public void testBinaryToInt() {
+        assertEquals(0, bcd.decode("0"));
+        assertEquals(1, bcd.decode("1"));
+        assertEquals(2, bcd.decode("10"));
+        assertEquals(3, bcd.decode("11"));
+        assertEquals(5,bcd.decode("101"));
+        assertEquals(13, bcd.decode("1101"));
+        assertEquals(255, bcd.decode("11111111"));
+    }
+
+}
