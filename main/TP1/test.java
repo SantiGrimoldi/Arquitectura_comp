@@ -25,21 +25,27 @@ public class test {
         assertEquals(resultadoEsperado3, calculadora.sum(a3, b3));
     }
     @Test
+    public void testMultBinaria(){
+        String a1 = "1011";
+        String b1 = "0110";
+        String resultadoEsperado1 = "1000010";
+        assertEquals(resultadoEsperado1, calculadora.mult(a1,b1));
+    }
+    @Test
     public void testRestaBinaria() {
-        String a1 = "10101010";
-        String b1 = "11001100";
-        //-64 + 16 + 8 + 4 + 2
-        String resultadoEsperado1 = "1011110";
+        String a1 = "01011";
+        String b1 = "0101";
+        String resultadoEsperado1 = "0110";
 
-        String a3 = "11111111";
-        String b3 = "1";
-        String resultadoEsperado3 = "11111110";
+        String a2 = "000000";
+        String b2 = "111111";
+        String resultadoEsperado2= "00001";
 
         String resultado1 = calculadora.sub(a1, b1);
-        String resultado3 = calculadora.sub(a3, b3);
+
 
         assertEquals(resultadoEsperado1, resultado1);
-        assertEquals(resultadoEsperado3, resultado3);
+        assertEquals(resultadoEsperado2, calculadora.sub(a2,b2));
     }
         @Test
         public void testBinarioAHexadecimal() {
