@@ -7,7 +7,6 @@ public class BCD implements BCDEncoder {
         if (a ==0){
             result += '0';
         }
-
         while(a != 0){
             if (a%2 == 0){
                 result += "0";
