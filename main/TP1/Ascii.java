@@ -1,6 +1,6 @@
 package TP1;
 
-public class Ascii implements AsciiEncoder{
+public class Ascii implements AsciiEncoder {
 
     @Override
     public String encode(String binary) {
@@ -9,7 +9,7 @@ public class Ascii implements AsciiEncoder{
         int bitValue = 128;
         int bitCount = 0;
 
-        for (int i = 0; i < binary.length(); i++) {
+        for (int i = 0; i <= binary.length() - 1; i++) {
             int bit = binary.charAt(i) - '0';
             decimal += bit * bitValue;
             bitValue /= 2;
@@ -22,9 +22,10 @@ public class Ascii implements AsciiEncoder{
                 bitCount = 0;
             }
         }
-
+        //completo con 1s para que el octeto tenga 8 bits
         if (bitCount > 0) {
-            decimal += (bitValue - 1);
+            int bitsMissing = 8 - bitCount;
+            decimal += 2*(bitsMissing) - 1;
             result += (char) decimal;
         }
 
