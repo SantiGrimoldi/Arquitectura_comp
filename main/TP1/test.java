@@ -102,14 +102,14 @@ public class test {
         assertEquals("Santi", ascii.encode("0101001101100001011011100111010001101001"));
     }
 
-    /*@Test
+    @Test
     public void testAsciiToBinary() {
-        assertEquals("01000001011011000110001101100001", ascii.encode("Alca") );
-        assertEquals("0100101001101111011000010110011001101001", ascii.encode("Joafi") );
-        assertEquals("010100010111010101101001011101000110111101110011", ascii.encode("Quitos") );
-        assertEquals("01010000011001010111000001100101", ascii.encode("Pepe") );
-        assertEquals("0101001101100001011011100111010001101001", ascii.encode("Santi") );
+        assertEquals("01000001011011000110001101100001", ascii.decode("Alca") );
+        assertEquals("0100101001101111011000010110011001101001", ascii.decode("Joafi") );
+        assertEquals("010100010111010101101001011101000110111101110011", ascii.decode("Quitos") );
+        assertEquals("01010000011001010111000001100101", ascii.decode("Pepe") );
+        assertEquals("0101001101100001011011100111010001101001", ascii.decode("Santi") );
 
 
-    }*/
+    }
 }

@@ -25,7 +25,7 @@ public class Ascii implements AsciiEncoder {
         //completo con 1s para que el octeto tenga 8 bits
         if (bitCount > 0) {
             int bitsMissing = 8 - bitCount;
-            decimal += 2*(bitsMissing) - 1;
+            decimal += Math.pow(2, bitsMissing) - 1;
             result += (char) decimal;
         }
 
@@ -34,6 +34,16 @@ public class Ascii implements AsciiEncoder {
 
     @Override
     public String decode(String ascii) {
-        return null;
+        String result = "";
+        for (int i = 0; i <= ascii.length() - 1; i++) {
+            int charValue = ascii.charAt(i);
+            for (int j = 7; j >= 0; j--) {
+                int decimal = (int) Math.pow(2, j);
+                int bit = charValue / decimal;
+                charValue -= bit * decimal;
+                result += bit;
+            }
+        }
+        return result;
     }
 }
